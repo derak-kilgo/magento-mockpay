@@ -1,0 +1,16 @@
+<config>
+    <modules>
+<!-- declare Company_Namespace module -->
+<!-- Copy this file here on install module: app/etc/modules/My_Mockpay.xml -->
+        <My_Mockpay>
+<!-- this is an active module -->
+            <active>true</active>
+<!-- this module will be located in app/code/local code pool -->
+            <codePool>local</codePool>
+<!-- specify dependencies for correct module loading order -->
+            <depends>
+                <Mage_Payment />
+            </depends>
+        </My_Mockpay>
+    </modules>
+</config>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <My_Mockpay>
+            <version>0.1.0</version>
+        </My_Mockpay>
+    </modules>
+    
+    <global>
+        
+        <models>
+            <mockpay>
+                <class>My_Mockpay_Model</class>
+            </mockpay>
+        </models>
+        
+        <helpers>
+            <mockpay>
+                <class>My_Mockpay_Helper</class>
+            </mockpay>
+        </helpers>
+        
+        <payment>
+            <groups>
+                <mockpay>Mockpay</mockpay>
+            </groups>
+        </payment>
+        
+        <events>
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <my_mockpay_observer>
+                        <class>My_Mockpay_Model_Observer</class>
+                        <method>saveOrderQuoteToSession</method>
+                    </my_mockpay_observer>
+                </observers>
+            </checkout_type_onepage_save_order_after>
+        </events>
+        
+    </global>
+    
+    <default>
+        <payment>
+            <mockpay>
+                <model>mockpay/standard</model>
+                <group>mockpay</group>
+                <active>1</active>
+                <title>Credit Card (MockPay - Fake Payment Gateway) </title>
+                <payment_action>sale</payment_action>
+                <allowspecific>0</allowspecific>
+            </mockpay>
+        </payment>
+        <mockpay>
+            <settings>
+                <activationstatus>0</activationstatus>
+            </settings>
+        </mockpay>
+    </default>
+    
+    <frontend>
+        <secure_url>
+            <mockpay_processing>/mockpay/standard</mockpay_processing>
+        </secure_url>
+        <routers>
+            <mockpay>
+                <use>standard</use>
+                <args>
+                    <module>My_Mockpay</module>
+                    <frontName>mockpay</frontName>
+                </args>
+            </mockpay>
+        </routers>
+    </frontend>
+
+</config>
