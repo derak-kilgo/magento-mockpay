@@ -116,6 +116,7 @@ class My_Mockpay_StandardController extends Mage_Core_Controller_Front_Action
             $order->load($this->_getApiOrderId());
             $state = $order->getState();
             if($state == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT){
+               $this->_createInvoice($order);
                 //sets the status to 'pending'.
                 $msg = 'Payment completed via MockPay.';
                 $order->setState(Mage_Sales_Model_Order::STATE_NEW ,true,$msg,false);
@@ -143,4 +144,23 @@ class My_Mockpay_StandardController extends Mage_Core_Controller_Front_Action
         Mage::Log('Called ' . __METHOD__);
         $this->_cancelAction();
     }
+
+    /**
+     * Builds invoice for order. @see moneybookers module.
+     */
+    protected function _createInvoice($orderObj)
+    {
+        if (!$orderObj->canInvoice()) {
+            return false;
+        }
+        $invoice = $orderObj->prepareInvoice();
+        $invoice->register();
+        if($invoice->canCapture()){
+            $invoice->capture();
+        }
+        $invoice->save();
+        $orderObj->addRelatedObject($invoice);
+        return $invoice;
+    }
+
 }
