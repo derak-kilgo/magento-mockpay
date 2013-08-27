@@ -38,18 +38,6 @@ class My_Mockpay_StandardController extends Mage_Core_Controller_Front_Action
         return $orderId;
     }
     /**
-    * Builds invoice for order
-    */
-    protected function _createInvoice()
-    {
-        if (!$this->_order->canInvoice()) {
-            return;
-        }
-        $invoice = $this->_order->prepareInvoice();
-        $invoice->register()->capture();
-        $this->_order->addRelatedObject($invoice);
-    }
-    /**
      * When a customer cancel payment from api
      */
     protected function _cancelAction()
