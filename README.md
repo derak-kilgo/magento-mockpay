@@ -10,6 +10,6 @@ This code is described in a series of posts on my blog:
 
 Installation:
 -------------
-1. Copy the "My" folder into your magento/app/local folder
-2. Copy the magento/app/local/My/Mockpay/My_Mockpay.xml into the magento/app/etc/modules/ folder.
+1. Copy the "My" folder into your `magento/app/code/local` folder (create `local` if it doesn't exist)
+2. Copy the `magento/app/local/My/Mockpay/My_Mockpay.xml` into the `magento/app/etc/modules/` folder.
 
